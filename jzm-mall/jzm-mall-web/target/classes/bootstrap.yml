@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: web-all  # 当前微服务名称，会作为Nacos中的服务名注册
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # 服务注册地址
+      config:
+        server-addr: localhost:8848 # 配置中心地址
+        file-extension: yaml        # 配置文件后缀
+        shared-configs:
+          - data-id: common.yaml    # 公共配置文件

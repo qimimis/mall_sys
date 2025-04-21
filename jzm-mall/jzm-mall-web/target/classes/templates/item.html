@@ -1,0 +1,193 @@
+<!--
+ * 商品详情页面结构
+ * 使用了Thymeleaf模板引擎(th:属性)和Vue.js框架(v-指令)的混合开发方式
+ * 主要分为商品图片展示区和商品信息区两大部分
+ -->
+
+<!-- 商品图片放大镜效果区域 -->
+<div class="zoom">
+    <!--
+     * 主图预览区域
+     * th:attr="hm-display=|{'displayType':'query','item_type':'sku_id','item':${skuInfo.id},'order':1}|"
+     * 用于数据统计和分析，记录展示商品的SKU ID和展示顺序
+     -->
+    <div id="preview" class="spec-preview hm-display-statistics" th:attr="hm-display=|{'displayType':'query','item_type':'sku_id','item':${skuInfo.id},'order':1}|">
+        <span class="jqzoom">
+            <!--
+             * 商品主图
+             * 使用jqzoom插件实现放大镜效果
+             * th:jqimg和th:src分别设置大图和预览图的URL
+             * 都使用skuDefaultImg作为默认图片
+             -->
+            <img th:jqimg="${skuInfo.skuDefaultImg}" th:src="${skuInfo.skuDefaultImg}" width="400" height="400"/>
+        </span>
+    </div>
+
+    <!-- 下方的缩略图滚动区域 -->
+    <div class="spec-scroll">
+        <!-- 左箭头导航按钮 -->
+        <a class="prev">&lt;</a>
+
+        <!-- 缩略图项容器 -->
+        <div class="items">
+            <ul>
+                <!--
+                 * 遍历当前SKU的所有图片列表
+                 * th:each="skuImage: ${skuInfo.skuImageList}" 是Thymeleaf的循环语法
+                 * onmousemove="preview(this)" 鼠标移动到缩略图上时触发预览函数，切换主图
+                 -->
+                <li th:each="skuImage: ${skuInfo.skuImageList}">
+                    <img th:src="${skuImage.imgUrl}" th:bimg="${skuImage.imgUrl}" onmousemove="preview(this)"/>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 右箭头导航按钮 -->
+        <a class="next">&gt;</a>
+    </div>
+</div>
+
+<!-- 商品信息区域 - 使用Vue.js管理交互 -->
+<div class="fr itemInfo-wrap" id="app" >
+    <!--
+     * 商品名称区域
+     * th:text将Thymeleaf变量值插入到HTML元素内容中
+     -->
+    <div class="sku-name">
+        <h4 th:text="${skuInfo.skuName}"></h4>
+    </div>
+
+    <!-- 商品推荐信息 - 营销文案 -->
+    <div class="news">
+        <span>推荐选择下方[移动优惠购],手机套餐齐搞定,不用换号,每月还有花费返</span>
+    </div>
+
+    <!-- 商品价格与评价信息区域 -->
+    <div class="summary">
+        <div class="summary-wrap">
+            <!-- 价格标题 -->
+            <div class="fl title">
+                <i>价　　格</i>
+            </div>
+
+            <!--
+             * 价格显示区域
+             * th:text="${price}" 显示服务器传递的价格变量
+             * 4499.00 是默认值，当无法获取price变量时显示
+             -->
+            <div class="fl price">
+                <i>¥</i>
+                <em><span th:text="${price}">4499.00</span></em>
+                <span>降价通知</span>
+            </div>
+
+            <!-- 评价数量显示区域 -->
+            <div class="fr remark">
+                <i>累计评价</i>
+                <em>500万+</em>
+            </div>
+        </div>
+
+        <!--
+         * 优惠券信息区域
+         * v-if 判断是否有可用优惠券，如无则不显示此区域
+         -->
+        <div class="summary-wrap" v-if="couponInfoList !== undefined && couponInfoList.length > 0">
+            <!-- 省略优惠券具体实现... -->
+        </div>
+
+        <!--
+         * 促销活动信息区域
+         * v-if 判断是否有促销活动，如无则不显示此区域
+         -->
+        <div class="summary-wrap" v-if="activityRuleList !== undefined && activityRuleList.length > 0">
+            <!-- 省略促销活动具体实现... -->
+        </div>
+    </div>
+
+    <!-- 商品支持信息区域（如售后、物流等） -->
+    <div class="support">
+        <!-- 省略支持信息具体实现... -->
+    </div>
+
+    <!-- 商品属性选择与购买区域 -->
+    <div class="clearfix choose">
+        <!--
+         * 商品规格/属性选择区域
+         * 使用Vue的v-for指令遍历销售属性列表
+         -->
+        <div id="specification" class="summary-wrap clearfix">
+            <!--
+             * 遍历所有销售属性(如颜色、尺寸等)
+             * :key绑定唯一标识，优化Vue的列表渲染性能
+             -->
+            <dl v-for="spuSaleAttr in spuSaleAttrList" :key="spuSaleAttr.id">
+                <!-- 属性名称 -->
+                <dt>
+                    <div class="fl title">
+                        <i>{{spuSaleAttr.saleAttrName}}</i>
+                    </div>
+                </dt>
+
+                <!--
+                 * 遍历当前属性的所有可选值
+                 * @click 绑定点击事件处理函数
+                 * :class 动态绑定CSS类，根据isChecked状态决定是否显示选中样式
+                 -->
+                <dd v-for="spuSaleAttrValue in spuSaleAttr.spuSaleAttrValueList" :key="spuSaleAttrValue.id" @click="spuSaleAttrFun(spuSaleAttr.index, spuSaleAttrValue.id)">
+                    <a href="javascript:;" :class="{'selected':spuSaleAttrValue.isChecked == 1}">
+                        {{spuSaleAttrValue.spuSaleAttrValueName}}
+                        <span title="点击取消选择">&nbsp;</span>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+
+        <!-- 购买数量控制与加入购物车按钮区域 -->
+        <div class="summary-wrap">
+            <!--
+             * 数量选择控制组
+             * :value="skuNum" 绑定到Vue的skuNum变量
+             -->
+            <div class="fl title">
+                <div class="control-group">
+                    <div class="controls">
+                        <!-- 数量输入框 -->
+                        <input autocomplete="off" type="text" :value="skuNum" minnum="1" class="itxt" />
+
+                        <!--
+                         * 增加数量按钮
+                         * @click="add()" 绑定增加数量的方法
+                         * th:attr 添加数据统计属性，记录购物车增加操作
+                         -->
+                        <a href="javascript:void(0)" class="increment plus hm-action-statistics" @click="add()" th:attr="hm-action=|{'action_id':'cart_add','item_type':'sku_id','item':${skuInfo.id}}|">+</a>
+
+                        <!--
+                         * 减少数量按钮
+                         * @click="down()" 绑定减少数量的方法
+                         * th:attr 添加数据统计属性，记录购物车减少操作
+                         -->
+                        <a href="javascript:void(0)" class="increment mins hm-action-statistics" @click="down()" th:attr="hm-action=|{'action_id':'cart_down','item_type':'sku_id','item':${skuInfo.id}}|">-</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮区域 -->
+            <div class="fl">
+                <ul class="btn-choose unstyled">
+                    <li>
+                        <!--
+                         * 加入购物车按钮
+                         * v-if/v-else 根据isAddCart状态切换按钮状态
+                         * @click="addToCart()" 绑定加入购物车方法
+                         * disabled属性控制按钮是否可用
+                         -->
+                        <a href="javascript:void(0);" v-if="isAddCart" @click="addToCart()" class="sui-btn  btn-danger addshopcar">加入购物车</a>
+                        <a href="javascript:void(0);" v-if="!isAddCart" class="sui-btn  btn-danger addshopcar" disabled="disabled">加入购物车</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
