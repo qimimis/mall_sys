@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: server-gateway  # 应用名称，服务注册到 Nacos 的名称
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848  # Nacos 注册中心地址
+      config:
+        server-addr: localhost:8848  # Nacos 配置中心地址
+        file-extension: yaml         # 配置文件后缀
+        shared-configs:
+          - data-id: common.yaml     # 共享配置文件（如：日志、全局属性等）

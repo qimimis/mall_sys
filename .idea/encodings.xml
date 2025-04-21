@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-common/jzm-common-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-common/jzm-common-util/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-common/jzm-common-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-product/product-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-product/product-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-product/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-product/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-user/jzm-user-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-user/jzm-user-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/jzm-mall-user/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jzm-mall/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

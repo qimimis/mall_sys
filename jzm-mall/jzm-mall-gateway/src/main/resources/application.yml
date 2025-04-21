@@ -1,0 +1,37 @@
+server:
+  port: 81  # 网关默认端口
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user_route
+          uri: lb://service-user  # 通过负载均衡调用 user 服务
+          predicates:
+            - Path=/api/user/**   # 匹配 /api/user/** 的所有路径
+        - id: product_route
+          uri: lb://service-product  # 通过负载均衡调用 product 服务
+          predicates:
+            - Path=/admin/product/**   # 匹配 /admin/product/** 的所有路径
+
+      # 跨域配置
+      globalcors:
+        cors-configurations:
+          '[/**]':               # 匹配所有路径
+            allowedOrigins: "*" # 允许所有来源
+            allowedMethods: "*" # 所有请求方法 GET POST DELETE PUT
+            allowedHeaders: "*" # 所有请求头
+            allowCredentials: false
+
+app:
+  auth:
+    anyone-url:      # 允许匿名访问的路径（静态资源）
+      - /img/**
+      - /js/**
+      - /css/**
+    deny-url:        # 所有人都禁止访问的路径（内部接口）
+      - /api/inner/**
+    auth-url:        # 必须认证（登录）后才能访问的路径
+      - /**/auth/**
+      - /trade.html
+    login-page: http://passport.mall.com/login.html # 登录页地址

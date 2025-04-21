@@ -1,0 +1,9 @@
+# Project exclude paths
+/jzm-mall/jzm-mall-common/jzm-common-service/target/
+/jzm-mall/jzm-mall-common/jzm-common-util/target/
+/jzm-mall/jzm-mall-common/jzm-common-web/target/
+/jzm-mall/jzm-mall-gateway/target/
+/jzm-mall/jzm-mall-product/product-api/target/
+/jzm-mall/jzm-mall-product/product-service/target/
+/jzm-mall/jzm-mall-user/jzm-user-api/target/
+/jzm-mall/jzm-mall-user/jzm-user-service/target/

@@ -1,0 +1,20 @@
+server:
+  port: 11001   # 启动端口号
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL 驱动
+    url: jdbc:mysql://localhost:3306/jzm_mall_product?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456
+    druid:      # Druid 是一个高性能的数据源连接池组件
+      initial-size: 5        # 初始连接数
+      min-idle: 5            # 最小空闲连接数
+      max-active: 20         # 最大连接数
+      max-wait: 60000        # 最大等待时间（毫秒）
+      validation-query: SELECT 1 FROM DUAL  # 用于检测连接是否有效的 SQL
+minio:
+  endpoint: http://192.168.137.128:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: mall-oss

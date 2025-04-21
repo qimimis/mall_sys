@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzm.mall.product.mapper.CategoryHierarchyMapper">
+
+    <!-- 定义结果映射，自动映射查询结果字段到 CategoryHierarchy 对象属性 -->
+    <resultMap id="skuCategoryHierarchyInfo" type="com.jzm.mall.product.model.CategoryHierarchy" autoMapping="true">
+        <!-- 若需要特殊映射，可在此处手工指定 -->
+    </resultMap>
+
+    <!--
+         SQL 查询说明：
+         - 从 base_category1、base_category2、base_category3 三个表内联查询，分别代表一、二、三级分类；
+         - 当参数 thirdLevelCategoryId 不为 null，则 WHERE 条件过滤为 c3.id = #{thirdLevelCategoryId}；
+         - 否则返回所有三级分类对应的完整层级数据。
+      -->
+    <select id="selectCategoryHierarchy" resultMap="skuCategoryHierarchyInfo">
+        SELECT
+        c1.id    AS first_level_category_id,
+        c1.name  AS first_level_category_name,
+        c2.id    AS second_level_category_id,
+        c2.name  AS second_level_category_name,
+        c3.id    AS third_level_category_id,
+        c3.name  AS third_level_category_name
+        FROM base_category1 c1
+        INNER JOIN base_category2 c2 ON c2.category1_id = c1.id
+        INNER JOIN base_category3 c3 ON c3.category2_id = c2.id
+        <where>
+            <if test="thirdLevelCategoryId != null">
+                c3.id = #{thirdLevelCategoryId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

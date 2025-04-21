@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jzm-common-web-1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jzm-mall/jzm-mall-common/jzm-common-web/target/jzm-common-web-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
