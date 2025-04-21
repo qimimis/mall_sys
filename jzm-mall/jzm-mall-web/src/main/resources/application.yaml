@@ -1,0 +1,13 @@
+# 应用服务端口配置
+server:
+  port: 11002
+
+spring:
+  main:
+    allow-bean-definition-overriding: true #允许bean定义信息重写
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  thymeleaf:
+    cache: false     # 开发环境关闭缓存
+    prefix: classpath:/templates/  # 模板文件路径
+    suffix: .html    # 模板文件后缀

@@ -59,5 +59,7 @@ public interface SpuService {
      * @param spuId SPU ID
      * @return 销售属性值组合字符串到SKU ID的映射
      */
-//    Map<String, Long> getSkuValueIdsMap(Long spuId);
+    Map<String, Long> getSkuValueIdsMap(Long spuId);
+
+
 }

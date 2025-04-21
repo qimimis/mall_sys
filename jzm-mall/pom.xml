@@ -15,6 +15,7 @@
         <module>jzm-mall-user/jzm-user-service</module>
         <module>jzm-mall-gateway</module>
         <module>jzm-mall-product</module>
+        <module>jzm-mall-web</module>
     </modules>
 
     <parent>

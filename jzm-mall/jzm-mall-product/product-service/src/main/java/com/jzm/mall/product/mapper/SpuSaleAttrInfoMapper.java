@@ -15,4 +15,7 @@ public interface SpuSaleAttrInfoMapper extends BaseMapper<SpuSaleAttributeInfo> 
 
     // 根据skuId和spuId查询销售属性集合，并标记选中状态
     List<SpuSaleAttributeInfo> selectSpuSaleAttrListCheckedBySku(@Param("skuId") Long skuId, @Param("spuId") Long spuId);
+
+
+
 }

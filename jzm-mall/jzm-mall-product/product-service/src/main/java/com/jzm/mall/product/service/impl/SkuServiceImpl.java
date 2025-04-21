@@ -3,14 +3,22 @@ package com.jzm.mall.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jzm.mall.product.converter.*;
+import com.jzm.mall.product.dto.PlatformAttributeInfoDTO;
+import com.jzm.mall.product.dto.SkuInfoDTO;
 import com.jzm.mall.product.dto.SkuInfoPageDTO;
+import com.jzm.mall.product.dto.SpuSaleAttributeInfoDTO;
+import com.jzm.mall.product.entity.SpuSaleAttributeInfo;
 import com.jzm.mall.product.mapper.*;
+import com.jzm.mall.product.model.PlatformAttributeInfo;
+import com.jzm.mall.product.model.SkuImage;
 import com.jzm.mall.product.model.SkuInfo;
 import com.jzm.mall.product.param.SkuInfoParam;
 import com.jzm.mall.product.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -149,5 +157,38 @@ public class SkuServiceImpl implements SkuService {
         skuInfoUp.setIsSale(0);
         // 更新数据库
         skuInfoMapper.updateById(skuInfoUp);
+    }
+
+    @Override
+    public SkuInfoDTO getSkuInfo(Long skuId) {
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        // 根据skuId 查询图片列表集合
+        List<SkuImage> skuImageList = skuImageMapper.getSkuImages(skuId);
+        skuInfo.setSkuImageList(skuImageList);
+        return skuInfoConverter.skuInfoPO2DTO(skuInfo);
+    }
+
+
+
+    @Override
+    public BigDecimal getSkuPrice(Long skuId) {
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        if (null != skuInfo) {
+            return skuInfo.getPrice();
+        }
+        return new BigDecimal("0");
+    }
+
+    @Override
+    public List<SpuSaleAttributeInfoDTO> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
+        List<SpuSaleAttributeInfo> spuSaleAttributeInfos = spuSaleAttrInfoMapper.selectSpuSaleAttrListCheckedBySku(skuId, spuId);
+        return spuInfoConverter.spuSaleAttributeInfoPOs2DTOs(spuSaleAttributeInfos);
+    }
+
+    @Override
+    public List<PlatformAttributeInfoDTO> getPlatformAttrInfoBySku(Long skuId) {
+        List<PlatformAttributeInfo> platformAttributeInfos = platformAttrInfoMapper.selectPlatformAttrInfoListBySkuId(skuId);
+        List<PlatformAttributeInfoDTO> platformAttributeInfoDTOs = platformAttributeInfoConverter.platformAttributeInfoPOs2DTOs(platformAttributeInfos);
+        return platformAttributeInfoDTOs;
     }
 }

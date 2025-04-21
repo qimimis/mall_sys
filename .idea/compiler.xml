@@ -24,6 +24,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
         <module name="jzm-common-util" />
+        <module name="jzm-mall-web" />
         <module name="jzm-user-service" />
         <module name="jzm-common-web" />
         <module name="jzm-mall-gateway" />
@@ -44,6 +45,7 @@
       <module name="jzm-mall-gateway" options="-parameters" />
       <module name="jzm-mall-product" options="-parameters" />
       <module name="jzm-mall-user" options="-parameters" />
+      <module name="jzm-mall-web" options="-parameters" />
       <module name="jzm-user-api" options="-parameters" />
       <module name="jzm-user-service" options="-parameters" />
       <module name="product-api" options="-parameters" />

@@ -15,6 +15,7 @@ import com.jzm.mall.product.entity.SpuInfo;
 import com.jzm.mall.product.entity.SpuPoster;
 import com.jzm.mall.product.entity.SpuSaleAttributeInfo;
 import com.jzm.mall.product.mapper.*;
+import com.jzm.mall.product.model.SkuSaleAttributeValuePermutation;
 import com.jzm.mall.product.param.SpuInfoParam;
 import com.jzm.mall.product.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -270,21 +271,20 @@ public class SpuServiceImpl implements SpuService {
      * @param spuId SPU ID
      * @return 销售属性值组合字符串到SKU ID的映射
      */
-//    @Override
-//    //@RedisCache(prefix = "skuValueIdsMap:")
-//    public Map<String, Long> getSkuValueIdsMap(Long spuId) {
-//        // 获取属性值组合的排列
-//        List<SkuSaleAttributeValuePermutation> permutationList = skuSaleAttrValueMapper.selectSaleAttrValuesBySpu(spuId);
-//
-//        // 构建映射：key=属性值ID组合（如"125|123"），value=对应的SKU ID
-//        HashMap<String, Long> valueIdsMap = new HashMap<>();
-//        if (!CollectionUtils.isEmpty(permutationList)) {
-//            permutationList.forEach(singlePermutation -> {
-//                valueIdsMap.put(singlePermutation.getSkuSaleAttrValuePermutation(),
-//                        singlePermutation.getSkuId());
-//            });
-//        }
-//
-//        return valueIdsMap;
-//    }
+    @Override
+    public Map<String, Long> getSkuValueIdsMap(Long spuId) {
+        // 获取属性值组合的排列
+        List<SkuSaleAttributeValuePermutation> permutationList = skuSaleAttrValueMapper.selectSaleAttrValuesBySpu(spuId);
+
+        // 构建映射：key=属性值ID组合（如"125|123"），value=对应的SKU ID
+        HashMap<String, Long> valueIdsMap = new HashMap<>();
+        if (!CollectionUtils.isEmpty(permutationList)) {
+            permutationList.forEach(singlePermutation -> {
+                valueIdsMap.put(singlePermutation.getSkuSaleAttrValuePermutation(),
+                        singlePermutation.getSkuId());
+            });
+        }
+
+        return valueIdsMap;
+    }
 }

@@ -1,9 +1,15 @@
 package com.jzm.mall.product.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jzm.mall.product.dto.PlatformAttributeInfoDTO;
+import com.jzm.mall.product.dto.SkuInfoDTO;
 import com.jzm.mall.product.dto.SkuInfoPageDTO;
+import com.jzm.mall.product.dto.SpuSaleAttributeInfoDTO;
 import com.jzm.mall.product.model.SkuInfo;
 import com.jzm.mall.product.param.SkuInfoParam;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * SKU服务接口
@@ -42,4 +48,13 @@ public interface SkuService {
      * @param skuId SKU的ID
      */
     void offSale(Long skuId);
+
+    public List<SpuSaleAttributeInfoDTO> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId);
+
+
+    public SkuInfoDTO getSkuInfo(Long skuId);
+
+    public BigDecimal getSkuPrice(Long skuId);
+
+    public List<PlatformAttributeInfoDTO> getPlatformAttrInfoBySku(Long skuId);
 }
